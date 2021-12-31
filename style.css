@@ -1,0 +1,23 @@
+body{
+    background-position: center;
+    background-size: 1850px;
+   text-align: center;
+}
+
+a{
+    font-size: 20px !important;
+    border-radius: 25px !important;
+    background-color: #f3a127;
+    color: white;
+    margin-top: 10px;
+}
+
+a:hover{
+    text-transform: lowercase;
+}
+.heading{
+    font-size: 25px;
+}
+.links{
+    margin-top: 10px;
+}
