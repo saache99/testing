@@ -21,3 +21,11 @@ a:hover{
 .links{
     margin-top: 10px;
 }
+
+label{
+    font-size: 25px;
+    background-color: #f3a127;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}

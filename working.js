@@ -1,4 +1,5 @@
 var img = "";
+var objects = [];
 
 function setup()
 {
@@ -11,20 +12,33 @@ function preload()
 }
 
 function draw(){
-image(img,0,0,640,420);
-fill("red");
-text("Laptop", 165,165);
-noFill();
-stroke("red");
-rect(150,150,200,200);
-fill("red");
-text("Man", 315,15);
-noFill();
-stroke("red");
-rect(300,0,250,500);
-fill("red");
-text("Coffee", 165,315);
-noFill();
-stroke("red");
-rect(150,300,100,100);
-}
+    image(img,0,0,640,420);
+    for (var i = 0; i < objects.length; i++) {
+        fill("red");
+        var precent = floor(objects[i].confidence * 100);
+        text(objects[i].label + " " + precent + "%", objects[i].x + 15, objects[i].y + 15);
+        noFill();
+        stroke("red");
+        rect(objects[i].x +15, objects[i].y +15, objects[i].width, objects[i].height);
+      }
+    }
+    
+    
+    function modelloaded()
+    {
+        console.log("Model Loaded succssefuly");
+        status = true;
+        objectDetection.detect(img, gotResult);
+    }
+    
+    function gotResult(error, results)
+    {
+     if(error)
+     {
+         console.log(error);
+     }
+     else{
+         console.log(results);
+         objects  = results;
+     }
+    }

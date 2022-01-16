@@ -1,4 +1,5 @@
 var img = "";
+var objects = [];
 
 function setup()
 {
@@ -13,6 +14,14 @@ function preload()
 
 function draw(){
     image(img,0,0,640,420);
+    for (var i = 0; i < objects.length; i++) {
+        fill("red");
+        var precent = floor(objects[i].confidence * 100);
+        text(objects[i].label + " " + precent + "%", objects[i].x, objects[i].y);
+        noFill();
+        stroke("red");
+        rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+      }
 }
 
 function modelloaded()
@@ -30,5 +39,6 @@ function gotResult(error, results)
  }
  else{
      console.log(results);
+     objects  = results;
  }
 }

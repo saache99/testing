@@ -1,9 +1,11 @@
 var kitchen = "";
+var objects = [];
 
 function setup()
 {
     canvas = createCanvas(640,420);
     canvas.center();
+    objectDetection = ml5.objectDetector('cocossd' , modelloaded);
 }
 function preload()
 {
@@ -11,33 +13,33 @@ function preload()
 }
 
 function draw(){
-image(kitchen,0,0,640,420);
-fill("red");
-noStroke();
-textSize(18);
-text("Dinning Table", 105,165);
-noFill();
-stroke("red");
-rect(100,150,400,250);
-fill("red");
-noStroke();
-textSize(18);
-text("Refigirator", 105,115);
-noFill();
-stroke("red");
-rect(100,100,100,200);
-fill("red");
-noStroke();
-textSize(18);
-text("Door", 555,115);
-noFill();
-stroke("red");
-rect(550,100,400,200);
-fill("red");
-noStroke();
-textSize(18);
-text("Lights", 210,65);
-noFill();
-stroke("red");
-rect(205,50,200,90);
-}
+    image(kitchen,0,0,640,420);
+    for (var i = 0; i < objects.length; i++) {
+        fill("red");
+        var precent = floor(objects[i].confidence * 100);
+        text(objects[i].label + " " + precent + "%", objects[i].x, objects[i].y);
+        noFill();
+        stroke("red");
+        rect(objects[i].x, objects[i].y, objects[i].width, objects[i].height);
+      }
+    }
+    
+    
+    function modelloaded()
+    {
+        console.log("Model Loaded succssefuly");
+        status = true;
+        objectDetection.detect(kitchen, gotResult);
+    }
+    
+    function gotResult(error, results)
+    {
+     if(error)
+     {
+         console.log(error);
+     }
+     else{
+         console.log(results);
+         objects  = results;
+     }
+    }
